@@ -1,0 +1,463 @@
+<!-- Preconnect to external CDNs for faster resource loading -->
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+<!-- Additional performance hints -->
+<link rel="prefetch" href="invoice.css">
+<link rel="prefetch" href="invoice.js">
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional invoice generator for AYUSH ENTERPRISES">
+  <meta name="theme-color" content="#667eea">
+  <meta name="cache-control" content="max-age=31536000">
+
+  <script>
+    // Authentication & Session Expiry Check
+    (function () {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      const session = JSON.parse(localStorage.getItem('user_session') || '{}');
+
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'auth.html';
+        return;
+      }
+
+      if (session.sessionExpiry && Date.now() > session.sessionExpiry) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('user_session');
+        window.location.href = 'auth.html?reason=expired';
+        return;
+      }
+    })();
+  </script>
+
+  <!-- Performance monitoring -->
+  <script>
+    // Early performance monitoring
+    if ('performance' in window) {
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          const perfData = performance.getEntriesByType('navigation')[0];
+          console.log('Page Load Time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+        }, 0);
+      });
+    }
+
+    // Resource load error handling
+    window.addEventListener('error', function (e) {
+      if (e.target.tagName === 'LINK' || e.target.tagName === 'SCRIPT') {
+        console.warn('Resource load failed:', e.target.href || e.target.src);
+      }
+    }, true);
+  </script>
+
+  <title>AYUSH ENTERPRISES</title>
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </noscript>
+
+  <link rel="preload" href="invoice.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="invoice.css">
+  </noscript>
+  <link rel="stylesheet" href="revenue.css">
+
+  <!-- Preload JavaScript files -->
+  <link rel="preload" href="invoice.js" as="script">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!-- Initial loading indicator -->
+  <div id="initial-loader" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease;
+  ">
+    <div style="text-align: center; color: white;">
+      <div style="
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      "></div>
+      <h2 style="margin: 0; font-size: 24px;">AYUSH ENTERPRISES</h2>
+      <p style="margin: 10px 0 0; opacity: 0.8;">Loading Invoice Generator...</p>
+    </div>
+  </div>
+
+  <style>
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <script>
+    // Hide loader when page is fully loaded
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          setTimeout(function () {
+            loader.style.display = 'none';
+          }, 500);
+        }
+      }, 800); // Show loader for at least 800ms for better UX
+    });
+  </script>
+
+  <!-- Sidebar overlay for desktop -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Hamburger Menu Button -->
+  <button class="toggle-btn" id="toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+    <div class="hamburger-menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </div>
+  </button>
+
+  <!-- Modern Sidebar Menu -->
+  <div class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class="fas fa-store" aria-hidden="true"></i>
+        </div>
+        <h2>AYUSH ENTERPRISES</h2>
+      </div>
+      <div class="search-container">
+        <input type="text" class="search-box" placeholder="Search anything..." aria-label="Search menu items">
+        <i class="fas fa-search search-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="menu-section">
+        <div class="menu-section-title">Main</div>
+        <div class="menu-item">
+          <a href="https://chat.z.ai/" class="menu-link active" data-page="dashboard" aria-current="page">
+            <span class="menu-icon"><i class="fas fa-home" aria-hidden="true"></i></span>
+            <span class="menu-text">Dashboard</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a href="#" class="menu-link" data-page="invoices">
+            <span class="menu-icon"><i class="fas fa-file-invoice" aria-hidden="true"></i></span>
+            <span class="menu-text">Invoices</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a href="#" class="menu-link" data-page="revenue">
+            <span class="menu-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></span>
+            <span class="menu-text">Revenue</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="menu-section">
+        <div class="menu-section-title">Analytics</div>
+        <div class="menu-item">
+          <a href="#" class="menu-link" data-page="notifications">
+            <span class="menu-icon"><i class="fas fa-bell" aria-hidden="true"></i></span>
+            <span class="menu-text">Notifications</span>
+            <span class="menu-badge" aria-label="3 new notifications">3</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a href="#" class="menu-link" data-page="analytics">
+            <span class="menu-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></span>
+            <span class="menu-text">Analytics</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a href="#" class="menu-link" data-page="reports">
+            <span class="menu-icon"><i class="fas fa-file-alt" aria-hidden="true"></i></span>
+            <span class="menu-text">Reports</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="menu-section">
+        <div class="menu-section-title">Settings</div>
+        <div class="menu-item">
+          <a href="#" class="menu-link" data-page="settings">
+            <span class="menu-icon"><i class="fas fa-cog" aria-hidden="true"></i></span>
+            <span class="menu-text">Settings</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a href="#" class="menu-link" data-page="help">
+            <span class="menu-icon"><i class="fas fa-question-circle" aria-hidden="true"></i></span>
+            <span class="menu-text">Help & Support</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a href="#" class="menu-link" data-page="logout">
+            <span class="menu-icon"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></span>
+            <span class="menu-text">Logout</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-toggle-container">
+      <div class="theme-toggle-wrapper">
+        <span class="theme-label">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+          <span>Dark Mode</span>
+        </span>
+        <div class="theme-toggle" id="theme-toggle" role="switch" aria-checked="false" tabindex="0">
+          <div class="theme-toggle-slider"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <div id="page-dashboard" class="page-section active">
+      <div class="svdt-container">
+        <!-- Sidebar - Input Section -->
+        <div class="svdt-sidebar">
+          <h1>Invoice Generator</h1>
+          <p class="svdt-subtitle">Single Page Invoice - Auto-fits to 1 page</p>
+
+          <!-- Quick Actions in 2x2 Grid -->
+          <div class="svdt-quick-actions">
+            <button class="svdt-btn svdt-btn-primary" onclick="quickFillSample()">
+              <i class="fas fa-file-import" aria-hidden="true"></i> Sample Data
+            </button>
+            <button class="svdt-btn svdt-btn-success" onclick="generateNewInvoice()">
+              <i class="fas fa-plus-circle" aria-hidden="true"></i> New Invoice
+            </button>
+            <button class="svdt-btn svdt-btn-danger" onclick="clearAll()">
+              <i class="fas fa-trash-alt" aria-hidden="true"></i> Clear All
+            </button>
+            <button class="svdt-btn svdt-btn-primary" onclick="printInvoice()">
+              <i class="fas fa-print" aria-hidden="true"></i> Print Preview
+            </button>
+          </div>
+
+          <!-- Product Count Warning -->
+          <div id="svdt-productWarning" class="svdt-page-warning" style="display: none;">
+            ⚠️ Too many products! Reduce to fit on one page.
+          </div>
+
+          <!-- Customer Details -->
+          <div class="svdt-section">
+            <h3 class="svdt-section-title"><i class="fas fa-user" aria-hidden="true"></i> Customer Information</h3>
+            <div class="svdt-form-group">
+              <label for="svdt-customerName">Customer Name *</label>
+              <input type="text" id="svdt-customerName" placeholder="Enter customer name" oninput="updateInvoice()">
+            </div>
+            <div class="svdt-form-group">
+              <label for="svdt-customerAddress">Customer Address</label>
+              <textarea id="svdt-customerAddress" rows="2" placeholder="Enter customer address"
+                oninput="updateInvoice()"></textarea>
+            </div>
+            <div class="svdt-form-group">
+              <label for="svdt-customerMobile">Mobile Number</label>
+              <input type="tel" id="svdt-customerMobile" placeholder="Enter mobile number" oninput="updateInvoice()">
+            </div>
+            <div class="svdt-form-group">
+              <label for="svdt-customerGSTIN">GSTIN (if any)</label>
+              <input type="text" id="svdt-customerGSTIN" placeholder="Customer GSTIN number" oninput="updateInvoice()">
+            </div>
+          </div>
+
+          <!-- Product Details -->
+          <div class="svdt-section">
+            <h3 class="svdt-section-title"><i class="fas fa-box" aria-hidden="true"></i> Products & Services</h3>
+            <div id="svdt-productsContainer">
+              <!-- Product items will be added here -->
+            </div>
+            <button class="svdt-add-product-btn" onclick="addProduct()">
+              <i class="fas fa-plus-circle" aria-hidden="true"></i> Add Another Product
+            </button>
+
+            <div class="svdt-auto-fill">
+              <p>Need quick setup?</p>
+              <button class="svdt-auto-fill-btn" onclick="quickFillProducts()">
+                <i class="fas fa-magic" aria-hidden="true"></i> Auto-fill Sample Products
+              </button>
+            </div>
+          </div>
+
+          <!-- Tax & Total -->
+          <div class="svdt-section">
+            <h3 class="svdt-section-title"><i class="fas fa-calculator" aria-hidden="true"></i> Pricing & Tax</h3>
+            <div class="svdt-form-group">
+              <div class="tax-toggle-container">
+                <span class="tax-label">
+                  <i class="fas fa-percentage" aria-hidden="true"></i>
+                  <span>Include GST Tax (18%)</span>
+                </span>
+                <div class="tax-toggle active" id="tax-toggle" role="switch" aria-checked="true" tabindex="0">
+                  <div class="tax-toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+            <div class="svdt-total-section">
+              <div class="svdt-total-row">
+                <span>Sub Total:</span>
+                <span id="svdt-subTotalDisplay">₹0.00</span>
+              </div>
+              <div class="svdt-total-row">
+                <span>GST (18%):</span>
+                <span id="svdt-taxDisplay">₹0.00</span>
+              </div>
+              <div class="svdt-total-row svdt-total-amount">
+                <span>Total Amount:</span>
+                <span id="svdt-totalDisplay">₹0.00</span>
+              </div>
+              <div class="svdt-amount-words" id="svdt-amountWords"></div>
+            </div>
+          </div>
+
+          <!-- Generate Invoice Button -->
+          <button class="svdt-btn svdt-btn-success svdt-btn-block" onclick="generateAndPrintInvoice()"
+            id="generate-btn">
+            <i class="fas fa-check-circle" aria-hidden="true"></i> Generate & Print Invoice
+          </button>
+
+          <p style="text-align: center; font-size: 12px; color: #7f8c8d; margin-top: 10px;">
+            ⚡ Invoice auto-fits to single A4 page
+          </p>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="svdt-preview">
+          <div class="svdt-invoice-preview" id="svdt-invoicePreview">
+            <div class="svdt-watermark">AYUSH ENTERPRISES</div>
+            <!-- Invoice preview will be updated here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoices Page -->
+    <div id="page-invoices" class="page-section" style="display: none;">
+      <!-- Content injected by fetch-bill.js -->
+    </div>
+
+    <!-- Revenue Page -->
+    <div id="page-revenue" class="page-section" style="display: none;">
+      <div class="placeholder-content" style="text-align: center; padding: 50px;">
+        <i class="fas fa-chart-line" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+        <h2>Revenue Analytics</h2>
+        <p>Revenue tracking feature coming soon!</p>
+      </div>
+    </div>
+
+    <!-- Notifications Page -->
+    <div id="page-notifications" class="page-section" style="display: none;">
+      <div class="placeholder-content" style="text-align: center; padding: 50px;">
+        <i class="fas fa-bell" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+        <h2>Notifications</h2>
+        <p>No new notifications.</p>
+      </div>
+    </div>
+
+    <!-- Analytics Page -->
+    <div id="page-analytics" class="page-section" style="display: none;">
+      <div class="placeholder-content" style="text-align: center; padding: 50px;">
+        <i class="fas fa-chart-bar" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+        <h2>Advanced Analytics</h2>
+        <p>Detailed analytics dashboard coming soon!</p>
+      </div>
+    </div>
+
+    <!-- Reports Page -->
+    <div id="page-reports" class="page-section" style="display: none;">
+      <div class="placeholder-content" style="text-align: center; padding: 50px;">
+        <i class="fas fa-file-alt" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+        <h2>Reports</h2>
+        <p>Generate and download reports here.</p>
+      </div>
+    </div>
+
+    <!-- Settings Page -->
+    <div id="page-settings" class="page-section" style="display: none;">
+      <div class="placeholder-content" style="text-align: center; padding: 50px;">
+        <i class="fas fa-cog" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+        <h2>Settings</h2>
+        <p>Application settings will be available here.</p>
+      </div>
+    </div>
+
+    <!-- Help Page -->
+    <div id="page-help" class="page-section" style="display: none;">
+      <div class="placeholder-content" style="text-align: center; padding: 50px;">
+        <i class="fas fa-question-circle" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+        <h2>Help & Support</h2>
+        <p>Contact support at info@ayushenterprises.com</p>
+      </div>
+    </div>
+
+    <!-- Hidden Printable Invoice -->
+    <div id="svdt-printable-invoice" class="svdt-printable-invoice">
+      <div class="svdt-watermark">AYUSH ENTERPRISES</div>
+      <!-- Printable invoice content will be inserted here -->
+    </div>
+
+    <!-- View Invoice Modal -->
+    <div id="view-bill-modal" class="fetch-bill-modal">
+      <div class="fetch-bill-modal-content" style="max-width: 800px; width: 95%;">
+        <div class="fetch-bill-modal-header">
+          <h2 id="view-bill-modal-title">Invoice Preview</h2>
+          <button class="fetch-bill-close-btn" onclick="fetchBillManager.closeViewModal()">&times;</button>
+        </div>
+        <div class="fetch-bill-modal-body" id="view-bill-content"
+          style="overflow-y: auto; max-height: 80vh; padding: 20px;">
+          <!-- Invoice content will be injected here -->
+        </div>
+        <div class="fetch-bill-modal-footer">
+          <button class="fetch-bill-btn fetch-bill-btn-secondary"
+            onclick="fetchBillManager.closeViewModal()">Close</button>
+          <button class="fetch-bill-btn fetch-bill-btn-success" onclick="fetchBillManager.printViewModal()">
+            <i class="fas fa-print" aria-hidden="true"></i> Print
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="shop-manager.js" defer></script>
+  <script src="invoice.js" defer></script>
+  <script src="fetch-bill.js" defer></script>
+  <script src="revenue-manager.js" defer></script>
+
+</body>
+
+</html>

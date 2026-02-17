@@ -1,0 +1,124 @@
+<div id="fetch-bill-container" class="fetch-bill-premium-card" style="display: none;">
+    <!-- Card Header with Gradient -->
+    <div class="fetch-bill-header-premium">
+        <h2 class="fetch-bill-title-premium">
+            <i class="fas fa-th-large" aria-hidden="true"></i>
+            Invoice Records
+        </h2>
+        <div class="fetch-bill-controls">
+            <button class="premium-btn btn-add-new" onclick="fetchBillManager.addNewRecord()">
+                <i class="fas fa-plus" aria-hidden="true"></i> Add New
+            </button>
+            <button class="premium-btn btn-export" onclick="fetchBillManager.exportData()">
+                <i class="fas fa-download" aria-hidden="true"></i> Export
+            </button>
+            <button class="premium-btn btn-refresh" onclick="fetchBillManager.refreshData()">
+                <i class="fas fa-sync" aria-hidden="true"></i> Refresh
+            </button>
+        </div>
+    </div>
+
+    <div class="fetch-bill-card-body">
+        <!-- Filters Section -->
+        <div class="fetch-bill-filters-v2">
+            <div class="filter-search-wrap">
+                <input type="text" id="fetch-bill-search" placeholder="Search invoices, customers, or products..."
+                    oninput="fetchBillManager.filterData()">
+            </div>
+            <div class="filter-dropdown-wrap">
+                <select id="fetch-bill-status-filter" onchange="fetchBillManager.filterData()">
+                    <option value="">All Status</option>
+                    <option value="generated">Generated</option>
+                    <option value="paid">Paid</option>
+                    <option value="pending">Pending</option>
+                    <option value="overdue">Overdue</option>
+                </select>
+            </div>
+            <div class="filter-dropdown-wrap">
+                <select id="fetch-bill-date-filter" onchange="fetchBillManager.filterData()">
+                    <option value="">All Dates</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div id="fetch-bill-table-container" class="fetch-bill-table-v2">
+            <!-- Table will be dynamically generated -->
+        </div>
+
+        <div id="fetch-bill-pagination" class="fetch-bill-pagination-v2">
+            <!-- Pagination will be dynamically generated -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Add/Edit -->
+<div id="fetch-bill-modal" class="fetch-bill-modal">
+    <div class="fetch-bill-modal-content">
+        <div class="fetch-bill-modal-header">
+            <h3 id="fetch-bill-modal-title">Add New Invoice</h3>
+            <button class="fetch-bill-btn fetch-bill-btn-danger fetch-bill-btn-sm"
+                onclick="fetchBillManager.closeModal()">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="fetch-bill-modal-body">
+            <form id="fetch-bill-form" class="fetch-bill-form">
+                <div class="fetch-bill-form-row">
+                    <div class="fetch-bill-form-group">
+                        <label for="bill-customer-name">Customer Name *</label>
+                        <input type="text" id="bill-customer-name" required>
+                    </div>
+                    <div class="fetch-bill-form-group">
+                        <label for="bill-invoice-number">Invoice Number</label>
+                        <input type="text" id="bill-invoice-number" readonly>
+                    </div>
+                </div>
+                <div class="fetch-bill-form-row">
+                    <div class="fetch-bill-form-group">
+                        <label for="bill-mobile">Mobile Number</label>
+                        <input type="tel" id="bill-mobile">
+                    </div>
+                    <div class="fetch-bill-form-group">
+                        <label for="bill-gstin">GSTIN</label>
+                        <input type="text" id="bill-gstin">
+                    </div>
+                </div>
+                <div class="fetch-bill-form-group">
+                    <label for="bill-address">Address</label>
+                    <textarea id="bill-address" rows="2"></textarea>
+                </div>
+                <div class="fetch-bill-form-row">
+                    <div class="fetch-bill-form-group">
+                        <label for="bill-total-amount">Total Amount (₹)</label>
+                        <input type="number" id="bill-total-amount" step="0.01" min="0">
+                    </div>
+                    <div class="fetch-bill-form-group">
+                        <label for="bill-status">Status</label>
+                        <select id="bill-status">
+                            <option value="generated">Generated</option>
+                            <option value="pending">Pending</option>
+                            <option value="paid">Paid</option>
+                            <option value="overdue">Overdue</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="fetch-bill-form-group">
+                    <label for="bill-products">Products (JSON format)</label>
+                    <textarea id="bill-products" rows="4"
+                        placeholder='[{"name": "Product 1", "price": 100, "quantity": 1}]'></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="fetch-bill-modal-footer">
+            <button type="button" class="fetch-bill-btn fetch-bill-btn-secondary"
+                onclick="fetchBillManager.closeModal()">Cancel</button>
+            <button type="submit" form="fetch-bill-form" class="fetch-bill-btn fetch-bill-btn-success">
+                <i class="fas fa-save" aria-hidden="true"></i> Save Record
+            </button>
+        </div>
+    </div>
+</div>

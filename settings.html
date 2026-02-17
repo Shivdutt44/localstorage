@@ -1,0 +1,409 @@
+<div class="settings-premium-container">
+    <div class="settings-header">
+        <div class="settings-header-content">
+            <h1 class="settings-main-title">Shop Profile</h1>
+            <p class="settings-subtitle">Manage your shop's identity and invoice branding</p>
+        </div>
+        <div class="settings-badge">
+            <i class="fas fa-shield-alt"></i> Verified Merchant
+        </div>
+    </div>
+
+    <div class="settings-grid">
+        <!-- Form Section -->
+        <div class="settings-glass-card settings-form-container">
+            <div class="card-header">
+                <i class="fas fa-edit"></i>
+                <span>Merchant Details</span>
+            </div>
+
+            <form id="shop-settings-form" class="premium-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-store"></i> Shop Name Name</label>
+                        <input type="text" id="shop-name" name="shopName" required placeholder="AYUSH ENTERPRISES">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-phone-alt"></i> Mobile</label>
+                        <input type="tel" id="shop-mobile" name="shopMobile" placeholder="8840960213">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> GSTIN</label>
+                        <input type="text" id="shop-gstin" name="shopGSTIN" placeholder="09AWQPC5111N1ZX">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Address Line 1</label>
+                    <input type="text" id="shop-address-1" name="shopAddress1" required
+                        placeholder="Amila (Polic Chauki)">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-city"></i> City, State, Zip</label>
+                    <input type="text" id="shop-address-2" name="shopAddress2" required
+                        placeholder="Mau (U.P.) - 275301">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="shop-email" name="shopEmail" placeholder="info@ayushenterprises.com">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-tint"></i> Watermark</label>
+                        <input type="text" id="shop-watermark" name="shopWatermark" placeholder="AYUSH ENTERPRISES">
+                    </div>
+                </div>
+
+                <button type="submit" class="premium-save-btn">
+                    <span class="btn-shine"></span>
+                    <i class="fas fa-check-circle"></i> Update Store Profile
+                </button>
+            </form>
+        </div>
+
+        <!-- Live Preview Section -->
+        <div class="settings-glass-card settings-preview-container">
+            <div class="card-header">
+                <i class="fas fa-eye"></i>
+                <span>Live Branding Preview</span>
+            </div>
+
+            <div class="live-preview-card">
+                <div class="preview-header">
+                    <div class="preview-logo-box">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="preview-shop-info">
+                        <h3 id="preview-shop-name">AYUSH ENTERPRISES</h3>
+                        <p id="preview-shop-address">Amila (Polic Chauki), Mau (U.P.)</p>
+                    </div>
+                </div>
+
+                <div class="preview-details">
+                    <div class="preview-detail-item">
+                        <span class="label">GSTIN:</span>
+                        <span id="preview-shop-gstin">09AWQPC5111N1ZX</span>
+                    </div>
+                    <div class="preview-detail-item">
+                        <span class="label">Mobile:</span>
+                        <span id="preview-shop-mobile">8840960213</span>
+                    </div>
+                </div>
+
+                <div class="preview-watermark-zone">
+                    <span id="preview-watermark">AYUSH ENTERPRISES</span>
+                </div>
+            </div>
+
+            <div class="settings-hint">
+                <i class="fas fa-lightbulb"></i>
+                <span>Changes appear here in real-time and will be reflected on all new invoices.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Premium Settings Styles */
+    .settings-premium-container {
+        padding: 10px;
+        max-width: 1200px;
+        margin: 0 auto;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .settings-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .settings-main-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: white;
+        margin: 0;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .settings-subtitle {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 5px 0 0 0;
+        font-size: 16px;
+    }
+
+    .settings-badge {
+        background: rgba(39, 174, 96, 0.2);
+        color: #2ecc71;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        border: 1px solid rgba(46, 204, 113, 0.3);
+        backdrop-filter: blur(5px);
+    }
+
+    .settings-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 30px;
+        align-items: start;
+    }
+
+    .settings-glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    body.dark-mode .settings-glass-card {
+        background: rgba(37, 40, 54, 0.8);
+        border-color: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 25px;
+        color: var(--primary-color);
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Form Styles */
+    .premium-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+        font-weight: 700;
+        color: #4a5568;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    body.dark-mode .form-group label {
+        color: #a0aec0;
+    }
+
+    .form-group input {
+        background: #f7fafc;
+        border: 2px solid #edf2f7;
+        border-radius: 12px;
+        padding: 12px 15px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+    }
+
+    body.dark-mode .form-group input {
+        background: rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.05);
+        color: white;
+    }
+
+    .form-group input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        background: white;
+    }
+
+    .premium-save-btn {
+        margin-top: 10px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 16px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(118, 75, 162, 0.2);
+    }
+
+    .premium-save-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(118, 75, 162, 0.4);
+    }
+
+    .premium-save-btn:active {
+        transform: translateY(-1px);
+    }
+
+    /* Live Preview Card */
+    .live-preview-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    body.dark-mode .live-preview-card {
+        background: #1a1d29;
+        border-color: #2d3748;
+    }
+
+    .preview-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #e2e8f0;
+    }
+
+    .preview-logo-box {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-color);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+    }
+
+    .preview-shop-info h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #2d3748;
+    }
+
+    body.dark-mode .preview-shop-info h3 {
+        color: white;
+    }
+
+    .preview-shop-info p {
+        margin: 2px 0 0 0;
+        font-size: 12px;
+        color: #718096;
+    }
+
+    .preview-details {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .preview-detail-item {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+    }
+
+    .preview-detail-item .label {
+        color: #a0aec0;
+        font-weight: 600;
+    }
+
+    .preview-detail-item span:last-child {
+        color: #4a5568;
+        font-weight: 700;
+    }
+
+    body.dark-mode .preview-detail-item span:last-child {
+        color: #e2e8f0;
+    }
+
+    .preview-watermark-zone {
+        margin-top: 25px;
+        padding: 15px;
+        background: #f8fafc;
+        border-radius: 10px;
+        text-align: center;
+        font-family: serif;
+        font-style: italic;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.1);
+        user-select: none;
+        pointer-events: none;
+        transform: rotate(-5deg);
+    }
+
+    body.dark-mode .preview-watermark-zone {
+        background: rgba(0, 0, 0, 0.3);
+        color: rgba(255, 255, 255, 0.05);
+    }
+
+    .settings-hint {
+        display: flex;
+        gap: 10px;
+        font-size: 12px;
+        color: #718096;
+        line-height: 1.5;
+    }
+
+    /* Responsive Settings */
+    @media (max-width: 992px) {
+        .settings-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .settings-preview-container {
+            order: -1;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

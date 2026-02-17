@@ -1,0 +1,132 @@
+<div class="revenue-premium-container">
+    <!-- Analytics Header -->
+    <div class="revenue-header-premium">
+        <div class="header-left">
+            <h2 class="revenue-title-premium">
+                <i class="fas fa-chart-pie" aria-hidden="true"></i>
+                Revenue Analytics
+            </h2>
+            <p class="revenue-subtitle-premium">Real-time performance metrics</p>
+        </div>
+        <div class="revenue-header-actions">
+            <div class="date-range-badge">
+                <i class="fas fa-calendar-alt"></i>
+                <span>This Month</span>
+            </div>
+            <button class="revenue-refresh-btn" onclick="revenueManager.refreshDashboard()">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="revenue-content-body">
+        <!-- Top Metrics Row -->
+        <div class="revenue-metrics-grid">
+            <div class="revenue-metric-card">
+                <div class="metric-icon bg-soft-blue">
+                    <i class="fas fa-indian-rupee-sign"></i>
+                </div>
+                <div class="metric-info">
+                    <span class="metric-label">Total Revenue</span>
+                    <h3 class="metric-value" id="revenue-total-sales">₹0</h3>
+                    <span class="metric-trend trend-up" id="revenue-growth">
+                        <i class="fas fa-caret-up"></i> 0% Growth
+                    </span>
+                </div>
+            </div>
+
+            <div class="revenue-metric-card">
+                <div class="metric-icon bg-soft-green">
+                    <i class="fas fa-receipt"></i>
+                </div>
+                <div class="metric-info">
+                    <span class="metric-label">Net Sales (Base)</span>
+                    <h3 class="metric-value" id="revenue-net-sales">₹0</h3>
+                    <span class="metric-subtext">Excluding GST</span>
+                </div>
+            </div>
+
+            <div class="revenue-metric-card">
+                <div class="metric-icon bg-soft-purple">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="metric-info">
+                    <span class="metric-label">GST Collection</span>
+                    <h3 class="metric-value" id="revenue-gst-total">₹0</h3>
+                    <span class="metric-subtext">18% Tax Component</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Analysis Grid -->
+        <div class="revenue-advanced-grid">
+            <!-- Payment Status Card -->
+            <div class="revenue-chart-card">
+                <div class="card-header-flex">
+                    <h4>Payment Distribution</h4>
+                    <span class="badge-soft">Live Status</span>
+                </div>
+                <div class="chart-container-inner pie-wrap">
+                    <canvas id="paymentStatusChart"></canvas>
+                </div>
+                <div class="status-summary-grid" id="status-legend-advanced">
+                    <!-- Status list injected -->
+                </div>
+            </div>
+
+            <!-- Top Products Card -->
+            <div class="revenue-chart-card">
+                <div class="card-header-flex">
+                    <h4>Top 5 Selling Products</h4>
+                    <i class="fas fa-trophy text-warning"></i>
+                </div>
+                <div class="top-items-list" id="top-products-list">
+                    <div class="loading-placeholder">Analyzing product performance...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts & Tables Layout -->
+        <div class="revenue-charts-grid">
+            <!-- Doughnut Chart Section -->
+            <div class="revenue-chart-card">
+                <div class="card-header-flex">
+                    <h4>Sales Breakdown</h4>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+                <div class="chart-container-inner doughnut-wrap">
+                    <canvas id="salesBreakdownChart"></canvas>
+                </div>
+                <div class="chart-legend-v2" id="sales-legend">
+                    <!-- Legend items will be injected -->
+                </div>
+            </div>
+
+            <!-- Trend Chart Section -->
+            <div class="revenue-chart-card trend-card">
+                <div class="card-header-flex">
+                    <h4>Revenue Trend</h4>
+                    <div class="chart-toggle-group">
+                        <button class="active">Monthly</button>
+                        <button>Weekly</button>
+                    </div>
+                </div>
+                <div class="chart-container-inner">
+                    <canvas id="revenueTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Sales List (Bottom) -->
+        <div class="revenue-recent-sales-card">
+            <div class="card-header-flex">
+                <h4>Recent High-Value Sales</h4>
+                <a href="#" onclick="navigateToPage('invoices'); return false;">View All Invoices</a>
+            </div>
+            <div class="recent-sales-list" id="revenue-recent-list">
+                <!-- Recent sales items will be injected -->
+                <div class="loading-placeholder">Loading recent data...</div>
+            </div>
+        </div>
+    </div>
+</div>

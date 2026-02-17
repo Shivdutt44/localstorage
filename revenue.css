@@ -1,0 +1,304 @@
+/* =====================================================
+     REVENUE ANALYTICS DASHBOARD STYLES (ENHANCED)
+     ===================================================== */
+
+.revenue-premium-container {
+    padding: 24px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.revenue-header-premium {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.revenue-title-premium {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: -0.5px;
+}
+
+body.dark-mode .revenue-title-premium {
+    color: #f8fafc;
+}
+
+.revenue-subtitle-premium {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.revenue-refresh-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.revenue-refresh-btn:hover {
+    background: #f8fafc;
+    transform: rotate(180deg);
+    border-color: #6366f1;
+    color: #6366f1;
+}
+
+/* Metrics Grid */
+.revenue-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.revenue-metric-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.revenue-metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .revenue-metric-card {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.metric-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.bg-soft-blue {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+.bg-soft-green {
+    background: #f0fdf4;
+    color: #22c55e;
+}
+
+.bg-soft-purple {
+    background: #f5f3ff;
+    color: #8b5cf6;
+}
+
+.metric-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.metric-value {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+    color: #0f172a;
+}
+
+body.dark-mode .metric-value {
+    color: #f1f5f9;
+}
+
+.metric-trend {
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 4px;
+    display: block;
+}
+
+.trend-up {
+    color: #10b981;
+}
+
+.metric-subtext {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+/* Advanced Grid (Payment & Top Products) */
+.revenue-advanced-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+    .revenue-advanced-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Charts Grid */
+.revenue-charts-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 1100px) {
+    .revenue-charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.revenue-chart-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+body.dark-mode .revenue-chart-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-header-flex h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+body.dark-mode .card-header-flex h4 {
+    color: #f1f5f9;
+}
+
+.chart-container-inner {
+    height: 250px;
+    position: relative;
+}
+
+/* Ranking List */
+.top-product-item {
+    padding: 12px;
+    border-radius: 10px;
+    background: #f8fafc;
+    margin-bottom: 12px;
+    transition: background 0.2s;
+}
+
+body.dark-mode .top-product-item {
+    background: #0f172a50;
+}
+
+.top-product-item:hover {
+    background: #f1f5f9;
+}
+
+/* Recent Sales */
+.revenue-recent-sales-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+body.dark-mode .revenue-recent-sales-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.recent-sale-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+body.dark-mode .recent-sale-item {
+    border-color: #334155;
+}
+
+.sale-customer {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+body.dark-mode .sale-customer {
+    color: #f1f5f9;
+}
+
+.sale-date {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-left: 10px;
+}
+
+.sale-amount {
+    font-weight: 800;
+    color: #10b981;
+}
+
+.loading-placeholder,
+.no-data {
+    text-align: center;
+    padding: 40px;
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.badge-soft {
+    background: #eff6ff;
+    color: #3b82f6;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+}

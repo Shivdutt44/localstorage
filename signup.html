@@ -1,0 +1,56 @@
+<div class="auth-header">
+    <div class="auth-logo">
+        <i class="fas fa-user-plus"></i>
+    </div>
+    <h2>Create Account</h2>
+    <p>Join us today to get started</p>
+</div>
+
+<form id="signup-form">
+    <div class="auth-form-group">
+        <label class="auth-label">Full Name</label>
+        <div class="auth-input-wrapper">
+            <i class="fas fa-user"></i>
+            <input type="text" class="auth-input" id="fullname" placeholder="John Doe" required>
+        </div>
+    </div>
+
+    <div class="auth-form-group">
+        <label class="auth-label">Email Address</label>
+        <div class="auth-input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input type="email" class="auth-input" id="email" placeholder="name@example.com" required>
+        </div>
+    </div>
+
+    <div class="auth-form-group">
+        <label class="auth-label">Password</label>
+        <div class="auth-input-wrapper">
+            <i class="fas fa-shield-alt"></i>
+            <input type="password" class="auth-input" id="password" placeholder="••••••••" required
+                oninput="auth.checkStrength(this.value)">
+            <i class="fas fa-eye-slash toggle-password" onclick="auth.togglePassword('password')"></i>
+        </div>
+        <div class="strength-meter">
+            <div id="strength-bar" class="strength-bar"></div>
+        </div>
+        <span id="strength-text" class="strength-text"></span>
+    </div>
+
+    <div class="auth-form-group">
+        <label class="auth-label">Confirm Password</label>
+        <div class="auth-input-wrapper">
+            <i class="fas fa-check-double"></i>
+            <input type="password" class="auth-input" id="confirm-password" placeholder="••••••••" required>
+        </div>
+    </div>
+
+    <button type="submit" class="auth-btn">
+        <span>Create Account</span>
+        <i class="fas fa-user-check"></i>
+    </button>
+</form>
+
+<div class="auth-footer">
+    Already have an account? <a href="#" class="auth-link" onclick="auth.loadForm('login')">Sign In</a>
+</div>

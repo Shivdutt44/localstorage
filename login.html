@@ -1,0 +1,43 @@
+<div class="auth-header">
+    <div class="auth-logo">
+        <i class="fas fa-lock"></i>
+    </div>
+    <h2>Secure Login</h2>
+    <p>Please enter your credentials to continue</p>
+</div>
+
+<form id="login-form">
+    <div class="auth-form-group">
+        <label class="auth-label">Email Address</label>
+        <div class="auth-input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input type="email" class="auth-input" id="email" placeholder="name@example.com" required>
+        </div>
+    </div>
+
+    <div class="auth-form-group">
+        <label class="auth-label">Password</label>
+        <div class="auth-input-wrapper">
+            <i class="fas fa-shield-alt"></i>
+            <input type="password" class="auth-input" id="password" placeholder="••••••••" required>
+            <i class="fas fa-eye-slash toggle-password" onclick="auth.togglePassword('password')"></i>
+        </div>
+    </div>
+
+    <div class="auth-flex-row">
+        <label class="auth-checkbox-group">
+            <input type="checkbox" id="remember">
+            <span>Remember me</span>
+        </label>
+        <a href="#" class="auth-link" onclick="auth.loadForm('forgot')">Forgot Password?</a>
+    </div>
+
+    <button type="submit" class="auth-btn">
+        <span>Sign In</span>
+        <i class="fas fa-arrow-right"></i>
+    </button>
+</form>
+
+<div class="auth-footer">
+    Don't have an account? <a href="#" class="auth-link" onclick="auth.loadForm('signup')">Create Account</a>
+</div>
